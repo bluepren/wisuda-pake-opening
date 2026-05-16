@@ -1,1 +1,0 @@
-# wisuda-pake-opening

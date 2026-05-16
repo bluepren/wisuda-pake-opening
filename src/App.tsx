@@ -47,11 +47,31 @@ export default function App() {
     }
   };
 
-  const galleryImages = [
-    "/images/graduate.jpg",
-    "/images/campus.jpg",
-    "/images/graduate.jpg",
-    "/images/campus.jpg",
+  const galleryItems = [
+    {
+      image: "/images/graduate.jpg",
+      tag: "Momen Kelulusan",
+      title: "Resmi Bergelar S.Kom",
+      desc: "Perjuangan akhir menyelesaikan tugas akhir dan skripsi dengan hasil yang membanggakan."
+    },
+    {
+      image: "/images/campus.jpg",
+      tag: "Kampus Tercinta",
+      title: "UPI YPTK Padang",
+      desc: "Tempat menimba ilmu, bertemu teman seperjuangan, dan mengukir kenangan indah selama 4 tahun."
+    },
+    {
+      image: "/images/graduate.jpg",
+      tag: "Hari Bahagia",
+      title: "Toga & Senyuman",
+      desc: "Langkah awal menuju masa depan yang cerah dengan iringan doa restu dari kedua orang tua."
+    },
+    {
+      image: "/images/campus.jpg",
+      tag: "Kenangan Kuliah",
+      title: "Gedung Penuh Cerita",
+      desc: "Saksi bisu setiap perjuangan, diskusi kelompok, tugas malam, dan tawa bersama sahabat."
+    },
   ];
 
   if (!isOpen) {
@@ -417,41 +437,98 @@ export default function App() {
         </div>
       </section>
 
-      {/* Gallery */}
+      {/* Gallery / Album */}
       <section className="bg-[#f8fafc] px-6 py-20">
         <div className="mx-auto max-w-6xl">
-          <div className="flex items-end justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#eff6ff] px-3 py-1 mb-2">
+                <span className="text-sm">📸</span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#1e40af]">Album Kenangan</span>
+              </div>
               <h2 className="font-['Cormorant_Garamond'] text-3xl font-bold text-[#0f172a] md:text-4xl">Momen Berharga</h2>
-              <p className="mt-2 text-slate-600">Perjalanan menuju gelar sarjana</p>
+              <p className="mt-2 text-slate-600">Perjalanan dan kenangan indah selama menempuh pendidikan</p>
             </div>
-            <div className="hidden gap-2 md:flex">
-              {galleryImages.map((_, i) => (
+            {/* Indikator Dots untuk semua layar */}
+            <div className="flex gap-1.5 items-center">
+              {galleryItems.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveGallery(i)}
-                  className={`h-1.5 rounded-full transition-all ${activeGallery === i ? "w-8 bg-[#1e3a8a]" : "w-1.5 bg-slate-300"}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${activeGallery === i ? "w-8 bg-[#1e3a8a]" : "w-2 bg-slate-300 hover:bg-slate-400"}`}
+                  aria-label={`Lihat foto ${i + 1}`}
                 />
               ))}
             </div>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-12 md:grid-rows-2 md:h-[480px]">
-            <div className="relative overflow-hidden rounded-3xl md:col-span-8 md:row-span-2">
-              <img src={galleryImages[activeGallery]} alt="Gallery" className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/60 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 backdrop-blur-md">
-                  <span className="text-xs font-medium text-white">Perjalanan 4 Tahun</span>
-                </div>
-                <h3 className="mt-3 font-['Cormorant_Garamond'] text-2xl font-semibold text-white md:text-3xl">Dari Maba hingga Sarjana</h3>
+          {/* Tampilan Utama (Featured Image) */}
+          <div className="mt-8 group relative overflow-hidden rounded-3xl bg-black shadow-2xl shadow-[#1e3a8a]/15 h-[380px] sm:h-[480px] transition-all">
+            <img 
+              src={galleryItems[activeGallery].image} 
+              alt={galleryItems[activeGallery].title} 
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/90 via-[#0f172a]/40 to-transparent" />
+            
+            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1.5 backdrop-blur-md mb-3 text-white border border-white/20">
+                <span className="text-xs font-medium tracking-wide">{galleryItems[activeGallery].tag}</span>
               </div>
+              <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-4xl font-bold text-white">
+                {galleryItems[activeGallery].title}
+              </h3>
+              <p className="mt-2 text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed font-light">
+                {galleryItems[activeGallery].desc}
+              </p>
             </div>
-            {galleryImages.slice(1, 3).map((img, i) => (
-              <div key={i} className="relative hidden overflow-hidden rounded-3xl md:col-span-4 md:block">
-                <img src={img} alt="Gallery" className="h-full w-full object-cover transition-transform duration-700 hover:scale-110" />
-                <div className="absolute inset-0 bg-[#1e3a8a]/0 transition-colors hover:bg-[#1e3a8a]/20" />
-              </div>
+
+            {/* Tombol navigasi kiri/kanan di foto utama */}
+            <button
+              onClick={() => setActiveGallery((prev) => (prev === 0 ? galleryItems.length - 1 : prev - 1))}
+              className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-md transition-all hover:bg-black/50 active:scale-95 border border-white/20"
+              aria-label="Sebelumnya"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => setActiveGallery((prev) => (prev === galleryItems.length - 1 ? 0 : prev + 1))}
+              className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-md transition-all hover:bg-black/50 active:scale-95 border border-white/20"
+              aria-label="Selanjutnya"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Grid Album Thumbnail (Muncul di Mobile & Desktop) */}
+          <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {galleryItems.map((item, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveGallery(i)}
+                className={`group relative overflow-hidden rounded-2xl aspect-[4/3] text-left transition-all duration-300 ${
+                  activeGallery === i 
+                    ? "ring-4 ring-[#1e3a8a] ring-offset-2 shadow-lg scale-[0.98]" 
+                    : "opacity-70 hover:opacity-100 hover:shadow"
+                }`}
+              >
+                <img src={item.image} alt={item.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className={`absolute inset-0 bg-gradient-to-t transition-opacity ${
+                  activeGallery === i ? "from-[#1e3a8a]/80 via-[#1e3a8a]/20 to-transparent" : "from-black/70 via-black/20 to-transparent"
+                }`} />
+                <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
+                  <span className="block text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-blue-200">
+                    {item.tag}
+                  </span>
+                  <h4 className="font-['Cormorant_Garamond'] text-sm sm:text-base font-bold text-white line-clamp-1">
+                    {item.title}
+                  </h4>
+                </div>
+              </button>
             ))}
           </div>
         </div>
