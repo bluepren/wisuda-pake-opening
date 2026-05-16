@@ -357,7 +357,7 @@ export default function App() {
             <p className="mt-3 text-slate-600">Simpan tanggalnya, kami tunggu kehadiran Anda</p>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid grid-cols-3 gap-2.5 sm:gap-4 md:gap-6">
             {[
               {
                 icon: "📅",
@@ -382,15 +382,15 @@ export default function App() {
               },
             ].map((item) => (
               <div key={item.title} className="group relative">
-                <div className={`absolute -inset-0.5 rounded-[1.75rem] bg-gradient-to-br ${item.color} opacity-0 blur-xl transition-opacity group-hover:opacity-20`} />
-                <div className="relative h-full overflow-hidden rounded-3xl bg-[#f8fafc] p-[1px]">
-                  <div className="relative h-full rounded-[1.6rem] bg-white p-8">
-                    <div className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${item.color} text-xl shadow-lg shadow-[#1e3a8a]/10`}>
+                <div className={`absolute -inset-0.5 rounded-2xl md:rounded-[1.75rem] bg-gradient-to-br ${item.color} opacity-0 blur-xl transition-opacity group-hover:opacity-20`} />
+                <div className="relative h-full overflow-hidden rounded-2xl bg-[#f8fafc] p-[1px] md:rounded-3xl">
+                  <div className="relative h-full rounded-[0.9rem] bg-white p-3 sm:p-5 md:rounded-[1.6rem] md:p-8">
+                    <div className={`flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br ${item.color} text-base shadow-lg shadow-[#1e3a8a]/10 md:inline-flex md:h-12 md:w-12 md:rounded-2xl md:text-xl`}>
                       {item.icon}
                     </div>
-                    <h3 className="mt-5 text-sm font-semibold uppercase tracking-wider text-slate-500">{item.title}</h3>
-                    <p className="mt-2 font-['Cormorant_Garamond'] text-2xl font-semibold text-[#0f172a]">{item.primary}</p>
-                    <p className="mt-1 text-sm text-slate-600">{item.secondary}</p>
+                    <h3 className="mt-2.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500 sm:text-xs md:mt-5 md:text-sm">{item.title}</h3>
+                    <p className="mt-1 font-['Cormorant_Garamond'] text-sm font-semibold text-[#0f172a] sm:text-lg md:mt-2 md:text-2xl">{item.primary}</p>
+                    <p className="mt-0.5 text-[10px] text-slate-600 sm:text-xs md:mt-1 md:text-sm">{item.secondary}</p>
                   </div>
                 </div>
               </div>
